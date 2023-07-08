@@ -13,7 +13,6 @@ import { setCartOn } from "../context/actions/displayCartAction";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
-  console.log(">>===>> >>===>> user:", user);
   const cart = useSelector((state) => state.cart);
 
   const [isMenu, setIsMenu] = useState(false);

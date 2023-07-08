@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { IoFastFood } from "../assets/icons";
+import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import { IoFastFood } from "../assets/icons";
 import { staggerFadeInOut } from "../animations";
 import { statuses } from "../utils/styles";
 import SliderCard from "./SliderCard";
@@ -20,22 +20,24 @@ const FilterSection = () => {
       </div>
 
       <div className="w-full overflow-x-scroll pt-6 flex items-center justify-center gap-6 py-8">
-        {statuses &&
-          statuses.map((data, i) => (
-            <FilterCard
-              data={data}
-              category={category}
-              setCategory={setCategory}
-              index={i}
-            />
-          ))}
+        {statuses?.map((data, i) => (
+          <FilterCard
+            data={data}
+            category={category}
+            setCategory={setCategory}
+            index={i}
+          />
+        ))}
       </div>
 
       <div className=" w-full flex items-center justify-evenly flex-wrap gap-4 mt-12 ">
-        {products &&
-          products
-            .filter((data) => data.product_category === category)
-            .map((data, i) => <SliderCard key={i} data={data} index={i} />)}
+        {products
+          ?.filter(
+            (data) => data.product_category === category || category === "all"
+          )
+          .map((data, i) => (
+            <SliderCard key={i} data={data} index={i} />
+          ))}
       </div>
     </motion.div>
   );

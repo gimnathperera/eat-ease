@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { buttonClcik, staggerFadeInOut } from "../animations";
 import { Delivery, HeroBg } from "../assets";
-import { randomData } from "../utils/styles";
+import { staticData } from "../utils/styles";
 
 const Home = () => {
   return (
@@ -25,10 +25,10 @@ const Home = () => {
         </p>
 
         <p className="text-textColor text-lg">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod ipsam
-          doloribus et similique distinctio, rem deleniti ipsa, nesciunt vitae
-          labore voluptates sunt ducimus mollitia id libero! Nostrum expedita
-          libero recusandae?
+          At Eat Ease, we are passionate about making your dining experience
+          effortless and enjoyable. With our food delivery and online ordering
+          application, we bring a world of culinary delights right to your
+          fingertips.
         </p>
         <motion.button
           {...buttonClcik}
@@ -46,8 +46,8 @@ const Home = () => {
         />
 
         <div className="w-full md:w-460 ml-0 flex flex-wrap items-center justify-center gap-4 gap-y-14">
-          {randomData &&
-            randomData.map((data, i) => (
+          {staticData &&
+            staticData.map((data, i) => (
               <motion.div
                 key={i}
                 {...staggerFadeInOut(i)}
