@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../api";
-import { Cart, FilterSection, Header, Home, HomeSLider } from "../components";
+import {
+  Cart,
+  FilterSection,
+  Footer,
+  Header,
+  Home,
+  HomeSLider,
+} from "../components";
 import { setAllProducts } from "../context/actions/productActions";
 
 const Main = () => {
@@ -25,6 +32,7 @@ const Main = () => {
         <HomeSLider />
         <FilterSection />
       </div>
+      <Footer />
 
       {isCart && <Cart />}
     </main>
