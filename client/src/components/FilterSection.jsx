@@ -7,7 +7,7 @@ import { statuses } from "../utils/styles";
 import SliderCard from "./SliderCard";
 
 const FilterSection = () => {
-  const [category, setCategory] = useState("fruits");
+  const [category, setCategory] = useState("all");
   const products = useSelector((state) => state.products);
 
   return (

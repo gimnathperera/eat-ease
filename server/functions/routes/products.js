@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const router = require("express").Router();
 const admin = require("firebase-admin");
 const db = admin.firestore();
@@ -28,10 +29,10 @@ router.post("/create", async (req, res) => {
 router.get("/all", async (req, res) => {
   (async () => {
     try {
-      let query = db.collection("products");
-      let response = [];
+      const query = db.collection("products");
+      const response = [];
       await query.get().then((querysnap) => {
-        let docs = querysnap.docs;
+        const docs = querysnap.docs;
         docs.map((doc) => {
           response.push({ ...doc.data() });
         });
@@ -160,14 +161,14 @@ router.get("/getCartItems/:user_id", async (req, res) => {
   const userId = req.params.user_id;
   (async () => {
     try {
-      let query = db
+      const query = db
         .collection("cartItems")
         .doc(`/${userId}/`)
         .collection("items");
-      let response = [];
+      const response = [];
 
       await query.get().then((querysnap) => {
-        let docs = querysnap.docs;
+        const docs = querysnap.docs;
 
         docs.map((doc) => {
           response.push({ ...doc.data() });
@@ -182,59 +183,63 @@ router.get("/getCartItems/:user_id", async (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
-  const customer = await stripe.customers.create({
-    metadata: {
-      user_id: req.body.data.user.user_id,
-      cart: JSON.stringify(req.body.data.cart),
-      total: req.body.data.total,
-    },
-  });
+  try {
+    const customer = await stripe.customers.create({
+      metadata: {
+        user_id: req.body.data.user.user_id,
+        cart: JSON.stringify(req.body.data.cart),
+        total: req.body.data.total,
+      },
+    });
 
-  const line_items = req.body.data.cart.map((item) => {
-    return {
-      price_data: {
-        currency: "inr",
-        product_data: {
-          name: item.product_name,
-          images: [item.imageURL],
-          metadata: {
-            id: item.productId,
+    const line_items = req.body.data.cart.map((item) => {
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.product_name,
+            images: [item.imageURL],
+            metadata: {
+              id: item.productId,
+            },
+          },
+          unit_amount: item.product_price * 100,
+        },
+        quantity: item.quantity,
+      };
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      shipping_address_collection: { allowed_countries: ["US"] },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: { amount: 0, currency: "usd" },
+            display_name: "Free shipping",
+            delivery_estimate: {
+              minimum: { unit: "hour", value: 2 },
+              maximum: { unit: "hour", value: 4 },
+            },
           },
         },
-        unit_amount: item.product_price * 100,
+      ],
+      phone_number_collection: {
+        enabled: true,
       },
-      quantity: item.quantity,
-    };
-  });
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    shipping_address_collection: { allowed_countries: ["IN"] },
-    shipping_options: [
-      {
-        shipping_rate_data: {
-          type: "fixed_amount",
-          fixed_amount: { amount: 0, currency: "inr" },
-          display_name: "Free shipping",
-          delivery_estimate: {
-            minimum: { unit: "hour", value: 2 },
-            maximum: { unit: "hour", value: 4 },
-          },
-        },
-      },
-    ],
-    phone_number_collection: {
-      enabled: true,
-    },
+      line_items,
+      customer: customer.id,
+      mode: "payment",
+      success_url: `${process.env.CLIENT_URL}/checkout-success`,
+      cancel_url: `${process.env.CLIENT_URL}/`,
+    });
 
-    line_items,
-    customer: customer.id,
-    mode: "payment",
-    success_url: `${process.env.CLIENT_URL}/checkout-success`,
-    cancel_url: `${process.env.CLIENT_URL}/`,
-  });
-
-  res.send({ url: session.url });
+    res.send({ url: session.url });
+  } catch (err) {
+    console.log("***************", err);
+  }
 });
 
 let endpointSecret;
@@ -309,13 +314,7 @@ const createOrder = async (customer, intent, res) => {
 };
 
 const deleteCart = async (userId, items) => {
-  console.log("Inside the delete");
-
-  console.log(userId);
-
-  console.log("*****************************************");
   items.map(async (data) => {
-    console.log("-------------------inside--------", userId, data.productId);
     await db
       .collection("cartItems")
       .doc(`/${userId}/`)
@@ -330,10 +329,10 @@ const deleteCart = async (userId, items) => {
 router.get("/orders", async (req, res) => {
   (async () => {
     try {
-      let query = db.collection("orders");
-      let response = [];
+      const query = db.collection("orders");
+      const response = [];
       await query.get().then((querysnap) => {
-        let docs = querysnap.docs;
+        const docs = querysnap.docs;
         docs.map((doc) => {
           response.push({ ...doc.data() });
         });

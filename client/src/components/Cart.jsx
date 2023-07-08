@@ -6,8 +6,8 @@ import { buttonClcik, slideIn, staggerFadeInOut } from "../animations";
 import { baseURL, getAllCartItems, increaseItemQuantity } from "../api";
 import {
   BiChevronsRight,
-  FcClearFilters,
   HiCurrencyRupee,
+  MdShoppingCart,
 } from "../assets/icons";
 import { alertNULL, alertSuccess } from "../context/actions/alertActions";
 import { setCartItems } from "../context/actions/cartAction";
@@ -59,8 +59,8 @@ const Cart = () => {
           <BiChevronsRight className="text-[50px] text-textColor" />
         </motion.i>
         <p className="text-2xl text-headingColor font-semibold">Your Cart</p>
-        <motion.i {...buttonClcik} className="cursor-pointer">
-          <FcClearFilters className="text-[30px] text-textColor" />
+        <motion.i>
+          <MdShoppingCart className="text-3xl text-textColor" />
         </motion.i>
       </div>
 
