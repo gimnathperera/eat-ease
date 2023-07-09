@@ -4,6 +4,18 @@
 
 Welcome to the Food Delivery Application, an open-source project built with React, Redux, Firebase, Tailwind, and Cloud Functions. This application provides a comprehensive solution for food delivery, featuring an admin portal and a client application. It supports various authentication mechanisms, including Google Auth, and ensures real-time data updating.
 
+
+---
+
+## Screenshots
+
+ 
+ 
+
+| Desktop          | Mobile        |
+| ---------------------- | ---------------------- |
+| ![screencapture-localhost-3000-2023-07-09-08_11_05](https://github.com/Gimnath-Perera/eat-ease/assets/55834384/9d127f6f-7f8e-4a8d-abfb-15b15ca811ef)| ![mobile](https://github.com/Gimnath-Perera/eat-ease/assets/55834384/86901ecd-7da3-4bb8-a349-07234fc57eba)|
+
 ---
 
 ## Features
