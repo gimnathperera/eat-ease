@@ -12,7 +12,7 @@ app.use(express.json());
 
 // cross orgin
 const cors = require("cors");
-app.use(cors({ origin: true }));
+app.use(cors({origin: true}));
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
   next();
